@@ -7,7 +7,7 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/vitorscassiano/voting-app/database"
+	"github.com/vitorscassiano/voting-app/repositories"
 	"github.com/vitorscassiano/voting-app/wires"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -38,7 +38,7 @@ func Authorize(ctx *gin.Context) {
 		return
 	}
 
-	user := database.FindUserByEmail(input.Email)
+	user := repositories.FindUserByEmail(input.Email)
 	if err := userAuthenticated(user.Password, input.Password); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "email or password is wrong."})
 		return
