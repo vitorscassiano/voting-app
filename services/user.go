@@ -13,7 +13,7 @@ import (
 func hashPassword(password string) string {
 	hashPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		fmt.Errorf("something wrong with hashing password")
+		fmt.Println("something wrong with hashing password")
 	}
 
 	return string(hashPassword)

@@ -15,5 +15,6 @@ func FindUserByEmail(email string) models.User {
 
 	return output
 }
+
 func FindUserByCPF()  {}
 func FindUserByName() {}
