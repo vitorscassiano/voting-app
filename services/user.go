@@ -2,9 +2,7 @@ package services
 
 import (
 	"fmt"
-	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/vitorscassiano/voting-app/entities"
 	"github.com/vitorscassiano/voting-app/repositories"
 	"golang.org/x/crypto/bcrypt"
@@ -19,6 +17,30 @@ func hashPassword(password string) string {
 	return string(hashPassword)
 }
 
+type UserService interface {
+	FindUserByEmail(email string) entities.User
+	CreateUser(user entities.User) entities.User
+}
+
+type service struct {
+	userRepo repositories.UserRepository
+}
+
+func NewUserService(userRepo repositories.UserRepository) UserService {
+	return &service{userRepo: userRepo}
+}
+
+func (s *service) FindUserByEmail(email string) entities.User {
+	return s.userRepo.FindUserByEmail(email)
+}
+
+func (s *service) CreateUser(user entities.User) entities.User {
+	s.userRepo.CreateUser(&user)
+
+	return user
+}
+
+/*
 func CreateUser(ctx *gin.Context) {
 	var input entities.User
 
@@ -38,3 +60,4 @@ func CreateUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusAccepted, gin.H{"user": user})
 }
+*/
