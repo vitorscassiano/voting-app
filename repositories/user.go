@@ -5,18 +5,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type UserRepository interface {
-	CreateUser(user *entities.User)
-	FindUserByEmail(email string) entities.User
-	FindUserByCPF(cpf string) entities.User
-	FindUserByName(name string) entities.User
-}
-
 type repo struct {
-	Connection gorm.DB
+	Connection *gorm.DB
 }
 
-func NewUserRepository(connection gorm.DB) UserRepository {
+func NewUserRepository(connection *gorm.DB) UserRepository {
 	return &repo{Connection: connection}
 }
 

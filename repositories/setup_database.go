@@ -1,19 +1,18 @@
-package entities
+package repositories
 
 import (
+	"github.com/vitorscassiano/voting-app/entities"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
-
-func InitializeRepositories() {
+func InitializeRepositories() *gorm.DB {
 	repositories, err := gorm.Open(sqlite.Open("voting-app.db"), &gorm.Config{})
 	if err != nil {
 		panic("repositories connection does not start")
 	}
 
-	repositories.AutoMigrate(&Authentication{}, &User{})
+	repositories.AutoMigrate(&entities.Authentication{}, &entities.User{})
 
-	DB = repositories
+	return repositories
 }
