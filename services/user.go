@@ -19,7 +19,7 @@ func hashPassword(password string) string {
 
 type UserService interface {
 	FindUserByEmail(email string) entities.User
-	CreateUser(user entities.User) entities.User
+	CreateUser(user *entities.User)
 }
 
 type service struct {
@@ -34,10 +34,8 @@ func (s *service) FindUserByEmail(email string) entities.User {
 	return s.userRepo.FindUserByEmail(email)
 }
 
-func (s *service) CreateUser(user entities.User) entities.User {
-	s.userRepo.CreateUser(&user)
-
-	return user
+func (s *service) CreateUser(user *entities.User) {
+	s.userRepo.CreateUser(user)
 }
 
 /*

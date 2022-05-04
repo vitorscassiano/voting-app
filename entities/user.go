@@ -10,7 +10,7 @@ type User struct {
 	Name     string `json:"name"`
 	Email    string `json:"email" gorm:"index"`
 	CPF      string `json:"cpf" gorm:"index"`
-	Password string `json:"password"`
+	Password string `json:"-"`
 }
 
 func (u *User) BeforeCreate(scope *gorm.DB) (err error) {

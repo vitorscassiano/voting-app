@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -23,6 +24,15 @@ func NewAuthenticationService(userRepo repositories.UserRepository) Authenticati
 
 func UserAuthenticated(hashPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashPassword), []byte(password))
+}
+
+func HashPassword(password string) string {
+	passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return string(passwordHash)
 }
 
 func GenerateJWTToken(userID string) (string, error) {

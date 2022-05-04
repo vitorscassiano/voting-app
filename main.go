@@ -13,13 +13,15 @@ func main() {
 	databaseConnection := repositories.InitializeRepositories()
 
 	userRepository := repositories.NewUserRepository(databaseConnection)
+
 	userService := services.NewUserService(userRepository)
 	authenticationService := services.NewAuthenticationService(userRepository)
 
-	controller := controllers.NewAuthenticationController(authenticationService, userService)
+	authorizationHandler := controllers.NewAuthenticationController(authenticationService, userService)
+	userHandler := controllers.NewUserHandler(userService)
 
-	r.POST("api/v1/users", controllers.CreateUser)
-	r.POST("api/v1/login", controller.Authorize)
+	r.POST("api/v1/users", userHandler.CreateUser)
+	r.POST("api/v1/login", authorizationHandler.Authorize)
 
 	r.Run()
 }
