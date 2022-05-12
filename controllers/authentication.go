@@ -5,16 +5,16 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/vitorscassiano/voting-app/controllers/wires"
 	"github.com/vitorscassiano/voting-app/services"
-	"github.com/vitorscassiano/voting-app/wires"
 )
 
 type Authentication struct {
-	aservice services.AuthenticationService
-	uservice services.UserService
+	aservice AuthenticationService
+	uservice UserService
 }
 
-func NewAuthenticationController(aservice services.AuthenticationService, uservice services.UserService) *Authentication {
+func NewAuthenticationController(aservice AuthenticationService, uservice UserService) *Authentication {
 	return &Authentication{aservice: aservice, uservice: uservice}
 }
 

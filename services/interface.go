@@ -1,4 +1,4 @@
-package repositories
+package services
 
 import "github.com/vitorscassiano/voting-app/entities"
 
@@ -7,4 +7,9 @@ type UserRepository interface {
 	FindUserByEmail(email string) entities.User
 	FindUserByCPF(cpf string) entities.User
 	FindUserByName(name string) entities.User
+}
+
+type CandidateRepository interface {
+	Candidates(email string) ([]entities.Candidate, error)
+	CreateCandidate(candidate *entities.Candidate) error
 }

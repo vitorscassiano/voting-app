@@ -5,29 +5,29 @@ import (
 	"gorm.io/gorm"
 )
 
-type repo struct {
-	Connection *gorm.DB
+type UserRepository struct {
+	db *gorm.DB
 }
 
-func NewUserRepository(connection *gorm.DB) UserRepository {
-	return &repo{Connection: connection}
+func NewUserRepository(connection *gorm.DB) *UserRepository {
+	return &UserRepository{db: connection}
 }
 
-func (r *repo) FindUserByEmail(email string) entities.User {
+func (r *UserRepository) FindUserByEmail(email string) entities.User {
 	var output entities.User
-	r.Connection.Where("email = ?", email).Find(&output)
+	r.db.Where("email = ?", email).Find(&output)
 
 	return output
 }
 
-func (r *repo) CreateUser(user *entities.User) {
-	r.Connection.Create(&user)
+func (r *UserRepository) CreateUser(user *entities.User) {
+	r.db.Create(&user)
 }
 
-func (r *repo) FindUserByCPF(cpf string) entities.User {
+func (r *UserRepository) FindUserByCPF(cpf string) entities.User {
 	return entities.User{}
 }
 
-func (r *repo) FindUserByName(name string) entities.User {
+func (r *UserRepository) FindUserByName(name string) entities.User {
 	return entities.User{}
 }

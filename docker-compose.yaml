@@ -6,3 +6,9 @@ services:
     environment:
       - POSTGRES_USER=votingapp
       - POSTGRES_PASSWORD=votingapp
+  # mongo:
+  #   image: mongo:latest
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: mongouser
+  #     MONGO_INITDB_ROOT_PASSWORD: mongopassword

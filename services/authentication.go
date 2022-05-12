@@ -5,21 +5,19 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/vitorscassiano/voting-app/repositories"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // This value will be regenerated and moved to configurations
 const SECRET_KEY = "Uv38ByGCZU8WP18PmmIdcpVmx00QA3xNe7sEB9HixkmBhVrYaB0NhtHpHgAWeTnLZpTSxCKs0gigByk5SH9pmQ=="
 
-type AuthenticationService interface{}
-
-type aservice struct {
-	userRepo repositories.UserRepository
+// Change to autentication user service and create another to authenticate candidate service
+type AuthenticationService struct {
+	userRepo UserRepository
 }
 
-func NewAuthenticationService(userRepo repositories.UserRepository) AuthenticationService {
-	return &aservice{userRepo: userRepo}
+func NewAuthenticationService(userRepo UserRepository) *AuthenticationService {
+	return &AuthenticationService{userRepo: userRepo}
 }
 
 func UserAuthenticated(hashPassword, password string) error {

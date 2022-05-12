@@ -4,21 +4,21 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/vitorscassiano/voting-app/controllers/wires"
 	"github.com/vitorscassiano/voting-app/entities"
 	"github.com/vitorscassiano/voting-app/services"
-	"github.com/vitorscassiano/voting-app/wires"
 )
 
 type UserHandler struct {
-	userService services.UserService
+	userService UserService
 }
 
-func NewUserHandler(userService services.UserService) *UserHandler {
+func NewUserHandler(userService UserService) *UserHandler {
 	return &UserHandler{userService: userService}
 }
 
 func (u *UserHandler) CreateUser(ctx *gin.Context) {
-	var input wires.PostUser
+	var input wires.PostUserIn
 
 	if err := ctx.ShouldBindJSON(&input); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"errors": err.Error()})

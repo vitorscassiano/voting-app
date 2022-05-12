@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/vitorscassiano/voting-app/entities"
-	"github.com/vitorscassiano/voting-app/repositories"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -17,24 +16,19 @@ func hashPassword(password string) string {
 	return string(hashPassword)
 }
 
-type UserService interface {
-	FindUserByEmail(email string) entities.User
-	CreateUser(user *entities.User)
+type UserService struct {
+	userRepo UserRepository
 }
 
-type service struct {
-	userRepo repositories.UserRepository
+func NewUserService(userRepo UserRepository) *UserService {
+	return &UserService{userRepo: userRepo}
 }
 
-func NewUserService(userRepo repositories.UserRepository) UserService {
-	return &service{userRepo: userRepo}
-}
-
-func (s *service) FindUserByEmail(email string) entities.User {
+func (s *UserService) FindUserByEmail(email string) entities.User {
 	return s.userRepo.FindUserByEmail(email)
 }
 
-func (s *service) CreateUser(user *entities.User) {
+func (s *UserService) CreateUser(user *entities.User) {
 	s.userRepo.CreateUser(user)
 }
 
