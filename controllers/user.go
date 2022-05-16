@@ -35,3 +35,5 @@ func (u *UserHandler) CreateUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{"user": user})
 }
+
+func GetUser(ctx *gin.Context) {}

@@ -8,14 +8,13 @@ import (
 )
 
 type Election struct {
-	VotingID    string      `json:"votingId" gorm:"primaryKey"`
-	Description string      `json:"description"`
-	Candidates  []Candidate `json:"candidates"`
-	Submits     []Vote      `json:"vote"`
-	CreatedAt   time.Time   `json:"createdAt,omitempty"`
+	ElectionID  string    `json:"electionId" gorm:"primaryKey"`
+	Description string    `json:"description"`
+	CandidateID []string  `json:"candidates" gorm:"foreignKey:"`
+	CreatedAt   time.Time `json:"createdAt,omitempty"`
 }
 
 func (v *Election) BeforeCreate(scope *gorm.DB) (err error) {
-	v.VotingID = uuid.NewString()
+	v.ElectionID = uuid.NewString()
 	return
 }

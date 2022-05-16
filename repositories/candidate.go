@@ -25,3 +25,14 @@ func (r *CandidateRepository) CreateCandidate(candidate *entities.Candidate) err
 
 	return nil
 }
+
+func (r *CandidateRepository) GetCandidate(candidateID string) (*entities.Candidate, error) {
+	var output entities.Candidate
+
+	tx := r.db.Where("candidate_id = ?", candidateID).Find(&output)
+	if err := tx.Error; err != nil {
+		return &entities.Candidate{}, err
+	}
+
+	return &output, nil
+}

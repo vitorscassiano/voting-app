@@ -12,4 +12,9 @@ type UserRepository interface {
 type CandidateRepository interface {
 	Candidates(email string) ([]entities.Candidate, error)
 	CreateCandidate(candidate *entities.Candidate) error
+	GetCandidate(candidateID string) (*entities.Candidate, error)
+}
+
+type ElectionRepository interface {
+	CreateElection(election *entities.Election) error
 }

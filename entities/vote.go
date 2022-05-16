@@ -8,7 +8,7 @@ import (
 )
 
 type Vote struct {
-	SubmitID  string    `json:"submitId" gorm:"primaryKey"`
+	VoteID    string    `json:"voteId" gorm:"primaryKey"`
 	User      User      `json:"user"`
 	Candidate Candidate `json:"candidate"`
 	Election  Election  `json:"election"`
@@ -16,6 +16,6 @@ type Vote struct {
 }
 
 func (s *Vote) BeforeCreate(scope *gorm.DB) (err error) {
-	s.SubmitID = uuid.NewString()
+	s.VoteID = uuid.NewString()
 	return
 }
